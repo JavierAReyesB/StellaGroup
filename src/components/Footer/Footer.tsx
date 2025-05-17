@@ -1,15 +1,11 @@
 'use client'
 
-import type React from 'react'
-
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
 import {
   Linkedin,
   Github,
@@ -18,70 +14,46 @@ import {
   Mail,
   Phone,
   MapPin,
-  Sun,
-  Moon,
   ChevronUp,
   ExternalLink
 } from 'lucide-react'
 
 export default function Footer() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300)
-    }
-
+    const handleScroll = () => setShowScrollTop(window.scrollY > 300)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle('dark')
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
+    // simulamos petición
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
       setEmail('')
-
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-      }, 3000)
+      setTimeout(() => setIsSubmitted(false), 3000)
     }, 1000)
   }
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer
-      className={`relative w-full border-t border-border/40 bg-background ${
-        isDarkMode ? 'dark' : ''
-      }`}
-    >
-      {/* Back to top button */}
-      <div className='absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 transform'>
+    <footer className='relative w-full border-t border-gray-700 bg-[#1d1f23] text-gray-300'>
+      {/* Botón “volver arriba” */}
+      <div className='absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2'>
         <motion.button
           onClick={scrollToTop}
-          className='flex h-12 w-24 items-center justify-center rounded-t-full border border-border/40 bg-background shadow-sm transition-all hover:bg-muted'
+          className='flex h-12 w-24 items-center justify-center rounded-t-full border border-gray-700 bg-[#1d1f23] shadow-sm transition-all hover:bg-gray-700'
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
           initial={{ opacity: 0 }}
@@ -92,10 +64,10 @@ export default function Footer() {
       </div>
 
       <div className='container mx-auto px-4 py-16'>
-        {/* Newsletter Section - Moved to top for emphasis */}
+        {/* Newsletter */}
         <div className='mx-auto mb-16 max-w-4xl'>
           <motion.div
-            className='rounded-xl border border-border/40 bg-background p-8 shadow-sm'
+            className='rounded-xl border border-gray-700 bg-[#1d1f23] p-8 shadow-sm'
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -109,7 +81,7 @@ export default function Footer() {
                 </span>{' '}
                 en tecnología
               </h3>
-              <p className='mb-6 text-muted-foreground'>
+              <p className='mb-6 text-gray-400'>
                 Suscríbete a nuestro newsletter y mantente al día con las
                 últimas tendencias y avances tecnológicos.
               </p>
@@ -118,17 +90,16 @@ export default function Footer() {
                 onSubmit={handleSubmit}
                 className='mx-auto flex max-w-md flex-col space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0'
               >
-                <div className='relative flex-1'>
-                  <Input
-                    type='email'
-                    placeholder='Tu correo electrónico'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className='h-11 w-full rounded-md border-border/40 bg-background px-4'
-                    disabled={isSubmitting}
-                  />
-                </div>
+                <Input
+                  type='email'
+                  placeholder='Tu correo electrónico'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className='h-11 flex-1 rounded-md border border-gray-700 bg-gray-800 px-4 text-gray-100'
+                  disabled={isSubmitting}
+                />
+
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -138,7 +109,7 @@ export default function Footer() {
                     className='h-11 w-full rounded-md px-6 sm:w-auto'
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Enviando...' : 'Suscribirse'}
+                    {isSubmitting ? 'Enviando…' : 'Suscribirse'}
                   </Button>
                 </motion.div>
               </form>
@@ -146,7 +117,7 @@ export default function Footer() {
               <AnimatePresence>
                 {isSubmitted && (
                   <motion.p
-                    className='mt-4 text-sm text-green-600'
+                    className='mt-4 text-sm text-green-500'
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -160,9 +131,9 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Main Footer Content */}
+        {/* Cuerpo principal */}
         <div className='grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-4'>
-          {/* Brand Section */}
+          {/* Marca */}
           <div className='space-y-6'>
             <motion.div
               initial={{ opacity: 0 }}
@@ -177,76 +148,52 @@ export default function Footer() {
                 height='40'
                 className='mr-3'
               />
-
               <span className='text-xl font-light tracking-tight'>
                 Tech<span className='font-semibold'>Company</span>
               </span>
             </motion.div>
-            <p className='text-sm leading-relaxed text-muted-foreground'>
+            <p className='text-sm leading-relaxed text-gray-400'>
               Innovamos con tecnología para un mundo mejor. Creamos soluciones
               digitales que transforman empresas y mejoran la vida de las
               personas.
             </p>
             <div className='flex space-x-3'>
-              <motion.a
-                href='https://linkedin.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                whileHover={{
-                  y: -3,
-                  backgroundColor: 'rgba(var(--primary-rgb), 0.1)'
-                }}
-                className='flex h-9 w-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary'
-              >
-                <Linkedin size={16} />
-                <span className='sr-only'>LinkedIn</span>
-              </motion.a>
-              <motion.a
-                href='https://github.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                whileHover={{
-                  y: -3,
-                  backgroundColor: 'rgba(var(--primary-rgb), 0.1)'
-                }}
-                className='flex h-9 w-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary'
-              >
-                <Github size={16} />
-                <span className='sr-only'>GitHub</span>
-              </motion.a>
-              <motion.a
-                href='https://twitter.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                whileHover={{
-                  y: -3,
-                  backgroundColor: 'rgba(var(--primary-rgb), 0.1)'
-                }}
-                className='flex h-9 w-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary'
-              >
-                <Twitter size={16} />
-                <span className='sr-only'>Twitter</span>
-              </motion.a>
-              <motion.a
-                href='https://youtube.com'
-                target='_blank'
-                rel='noopener noreferrer'
-                whileHover={{
-                  y: -3,
-                  backgroundColor: 'rgba(var(--primary-rgb), 0.1)'
-                }}
-                className='flex h-9 w-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary'
-              >
-                <Youtube size={16} />
-                <span className='sr-only'>YouTube</span>
-              </motion.a>
+              {[
+                {
+                  Icon: Linkedin,
+                  href: 'https://linkedin.com',
+                  label: 'LinkedIn'
+                },
+                { Icon: Github, href: 'https://github.com', label: 'GitHub' },
+                {
+                  Icon: Twitter,
+                  href: 'https://twitter.com',
+                  label: 'Twitter'
+                },
+                { Icon: Youtube, href: 'https://youtube.com', label: 'YouTube' }
+              ].map(({ Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  whileHover={{
+                    y: -3,
+                    backgroundColor: 'rgba(var(--primary-rgb),0.1)'
+                  }}
+                  className='flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-colors hover:border-primary/40 hover:text-primary'
+                >
+                  <Icon size={16} />
+                  <span className='sr-only'>{label}</span>
+                </motion.a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Navigation */}
+          {/* Navegación rápida */}
           <div className='space-y-6'>
             <div>
-              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground'>
+              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400'>
                 Navegación
               </h3>
               <ul className='grid grid-cols-2 gap-2'>
@@ -255,7 +202,7 @@ export default function Footer() {
                     <motion.li key={item} whileHover={{ x: 3 }}>
                       <Link
                         href={`/${item.toLowerCase()}`}
-                        className='text-sm text-foreground transition-colors hover:text-primary'
+                        className='text-sm text-gray-300 transition-colors hover:text-primary'
                       >
                         {item}
                       </Link>
@@ -266,7 +213,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground'>
+              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400'>
                 Productos
               </h3>
               <ul className='space-y-2'>
@@ -277,13 +224,13 @@ export default function Footer() {
                   },
                   { name: 'Páginas web a medida', href: '/productos/web' },
                   { name: 'AI Teacher', href: '/productos/ai-teacher' }
-                ].map((product) => (
-                  <motion.li key={product.name} whileHover={{ x: 3 }}>
+                ].map((p) => (
+                  <motion.li key={p.name} whileHover={{ x: 3 }}>
                     <Link
-                      href={product.href}
-                      className='group flex items-center text-sm text-foreground transition-colors hover:text-primary'
+                      href={p.href}
+                      className='group flex items-center text-sm text-gray-300 transition-colors hover:text-primary'
                     >
-                      {product.name}
+                      {p.name}
                       <ExternalLink
                         size={12}
                         className='ml-1 opacity-0 transition-opacity group-hover:opacity-100'
@@ -295,10 +242,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Resources & Support */}
+          {/* Recursos y soporte */}
           <div className='space-y-6'>
             <div>
-              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground'>
+              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400'>
                 Recursos
               </h3>
               <ul className='space-y-2'>
@@ -306,13 +253,13 @@ export default function Footer() {
                   { name: 'FAQ / Preguntas frecuentes', href: '/faq' },
                   { name: 'Documentación técnica', href: '/docs' },
                   { name: 'Centro de soporte', href: '/soporte' }
-                ].map((resource) => (
-                  <motion.li key={resource.name} whileHover={{ x: 3 }}>
+                ].map((r) => (
+                  <motion.li key={r.name} whileHover={{ x: 3 }}>
                     <Link
-                      href={resource.href}
-                      className='text-sm text-foreground transition-colors hover:text-primary'
+                      href={r.href}
+                      className='text-sm text-gray-300 transition-colors hover:text-primary'
                     >
-                      {resource.name}
+                      {r.name}
                     </Link>
                   </motion.li>
                 ))}
@@ -320,7 +267,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground'>
+              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400'>
                 Legal
               </h3>
               <ul className='space-y-2'>
@@ -328,13 +275,13 @@ export default function Footer() {
                   { name: 'Términos y condiciones', href: '/legal/terminos' },
                   { name: 'Política de privacidad', href: '/legal/privacidad' },
                   { name: 'Cookies', href: '/legal/cookies' }
-                ].map((legal) => (
-                  <motion.li key={legal.name} whileHover={{ x: 3 }}>
+                ].map((l) => (
+                  <motion.li key={l.name} whileHover={{ x: 3 }}>
                     <Link
-                      href={legal.href}
-                      className='text-sm text-foreground transition-colors hover:text-primary'
+                      href={l.href}
+                      className='text-sm text-gray-300 transition-colors hover:text-primary'
                     >
-                      {legal.name}
+                      {l.name}
                     </Link>
                   </motion.li>
                 ))}
@@ -342,14 +289,14 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* Contacto */}
           <div className='space-y-6'>
             <div>
-              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground'>
+              <h3 className='mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400'>
                 Contacto
               </h3>
               <ul className='space-y-4'>
-                <li className='flex items-center text-sm text-foreground'>
+                <li className='flex items-center text-sm text-gray-300'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary'>
                     <Mail size={14} />
                   </div>
@@ -360,7 +307,7 @@ export default function Footer() {
                     info@techcompany.com
                   </a>
                 </li>
-                <li className='flex items-center text-sm text-foreground'>
+                <li className='flex items-center text-sm text-gray-300'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary'>
                     <Phone size={14} />
                   </div>
@@ -371,7 +318,7 @@ export default function Footer() {
                     +34 600 000 000
                   </a>
                 </li>
-                <li className='flex items-start text-sm text-foreground'>
+                <li className='flex items-start text-sm text-gray-300'>
                   <div className='mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary'>
                     <MapPin size={14} />
                   </div>
@@ -383,74 +330,34 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-
-            <div className='rounded-lg border border-border/40 p-4'>
-              <div className='flex items-center justify-between'>
-                <span className='text-xs font-medium text-muted-foreground'>
-                  Preferencia de tema
-                </span>
-                <div className='flex items-center space-x-2'>
-                  <Switch
-                    id='dark-mode'
-                    checked={isDarkMode}
-                    onCheckedChange={toggleDarkMode}
-                    className='data-[state=checked]:bg-primary'
-                  />
-                  <Label htmlFor='dark-mode' className='cursor-pointer text-xs'>
-                    {isDarkMode ? (
-                      <div className='flex items-center'>
-                        <Moon size={12} className='mr-1' />
-                        <span>Oscuro</span>
-                      </div>
-                    ) : (
-                      <div className='flex items-center'>
-                        <Sun size={12} className='mr-1' />
-                        <span>Claro</span>
-                      </div>
-                    )}
-                  </Label>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
-        <Separator className='my-8 opacity-30' />
+        <Separator className='my-8 bg-gray-700' />
 
-        {/* Bottom Footer */}
-        <div className='flex flex-col items-center justify-between space-y-4 text-center text-xs text-muted-foreground md:flex-row md:space-y-0 md:text-left'>
+        {/* Pie inferior */}
+        <div className='flex flex-col items-center justify-between space-y-4 text-center text-xs text-gray-400 md:flex-row md:space-y-0 md:text-left'>
           <div>© {currentYear} TechCompany. Todos los derechos reservados.</div>
           <div className='flex items-center space-x-1'>
             <span>Powered by</span>
-            <motion.a
-              href='https://nextjs.org'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='font-medium text-foreground transition-colors hover:text-primary'
-              whileHover={{ y: -1 }}
-            >
-              Next.js
-            </motion.a>
-            <span>·</span>
-            <motion.a
-              href='https://tailwindcss.com'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='font-medium text-foreground transition-colors hover:text-primary'
-              whileHover={{ y: -1 }}
-            >
-              Tailwind CSS
-            </motion.a>
-            <span>·</span>
-            <motion.a
-              href='https://vercel.com'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='font-medium text-foreground transition-colors hover:text-primary'
-              whileHover={{ y: -1 }}
-            >
-              Vercel
-            </motion.a>
+            {[
+              { name: 'Next.js', href: 'https://nextjs.org' },
+              { name: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+              { name: 'Vercel', href: 'https://vercel.com' }
+            ].map(({ name, href }) => (
+              <span key={name} className='flex items-center'>
+                <motion.a
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='font-medium text-gray-300 transition-colors hover:text-primary'
+                  whileHover={{ y: -1 }}
+                >
+                  {name}
+                </motion.a>
+                {name !== 'Vercel' && <span className='mx-1'>·</span>}
+              </span>
+            ))}
           </div>
         </div>
       </div>

@@ -43,20 +43,20 @@ export default function Header() {
   const cartItemCount = 3
 
   return (
-    <header className='w-full border-b border-gray-200 bg-white'>
+    <header className='w-full  border-gray-200 bg-gradient-to-b from-white/90 via-white/60 to-white/10 backdrop-blur-sm'>
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className='container mx-auto px-4'
       >
-        <div className='flex h-16 items-center justify-between'>
+        <div className='flex h-24 items-center justify-between'>
           {/* Logo */}
           <Link
             href='/'
             className='flex items-center border border-gray-300 rounded-md p-2'
           >
-            <span className='text-xl font-bold text-black'>TechCompany</span>
+            <span className='text-xl font-bold text-black'>Stella Group</span>
           </Link>
 
           {/* Desktop Navigation */}

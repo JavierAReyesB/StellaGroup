@@ -1,13 +1,13 @@
 export default function ServicesSection() {
   return (
-    <section className='py-20 px-8 bg-white text-center'>
+    <section className='py-20 px-8 bg-white/10 text-center backdrop-blur-sm rounded-lg mx-4 md:mx-15'>
       <div className='max-w-6xl mx-auto'>
         <h2 className='text-4xl font-bold mb-10 text-gray-900'>
           Nuestros Servicios
         </h2>
         <div className='grid md:grid-cols-3 gap-8'>
           {/* Servicio 1 */}
-          <div className='p-8 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='p-8 bg-white/40 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 border border-gray-100'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -34,7 +34,7 @@ export default function ServicesSection() {
           </div>
 
           {/* Servicio 2 */}
-          <div className='p-8 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='p-8 bg-white/40 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 border border-gray-100'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -61,7 +61,7 @@ export default function ServicesSection() {
           </div>
 
           {/* Servicio 3 */}
-          <div className='p-8 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='p-8 bg-white/40 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 border border-gray-100'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
